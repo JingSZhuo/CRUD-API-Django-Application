@@ -1,16 +1,30 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    HELLO WORLD
+      <div>
+        {{form_data}}
+      </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name: 'MainApp',
+  data() {
+    return{
+        form_data : []
+    }
+  },
+  method: {
+    async fetchData() { //perform an AJAX request to fetch form data
+      let response = await fetch("http://localhost:8080/main/data")
+      let data = response.json()
+
+      this.form_data = data.form_data
+    }
   }
+
 }
 </script>
 

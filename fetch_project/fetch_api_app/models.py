@@ -15,4 +15,15 @@ class FormQuestions(models.Model):
     age = models.IntegerField(default=0 )
     date_posted = models.DateField('Date posted' )
     
+    """Converts database object to dictionary (JSON Format)"""
+    
+    def to_dictionary(self):
+        return {
+            'id': self.id,
+            'email': self.email,
+            'username': self.username,
+            'age': self.age,
+            'date_posted': self.date_posted,
+        }
+    
     
