@@ -12,11 +12,12 @@ def home(request):
 
 
 """Creates a list of dictionaries via the []"""
+#view function that returns a JSONResponse
 
 def form_api(request):              #GET request of the database object model
     if request.method == 'GET':
         return JsonResponse({
-            'form_dictionary' : [
+            'forms_dictionary' : [
                 data.to_dictionary()
                 for data in FormQuestions.objects.all()
             ]

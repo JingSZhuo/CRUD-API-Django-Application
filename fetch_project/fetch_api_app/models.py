@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 """ 
     SQL Database Table Created with the name 'FormQuestions'  
     
@@ -23,7 +21,7 @@ class FormQuestions(models.Model):
             'email': self.email,
             'username': self.username,
             'age': self.age,
-            'date_posted': self.date_posted,
+            'date posted': self.date_posted,
         }
     
     

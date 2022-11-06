@@ -1,9 +1,9 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <div>
-    HELLO WORLD
+      <h1>Form Data</h1>
       <div>
-        {{form_data}}
+        <div>{{formData}}</div>
       </div>
   </div>
 </template>
@@ -12,19 +12,21 @@
 export default {
   name: 'MainApp',
   data() {
-    return{
-        form_data : []
+    return  {
+        formData: [],
     }
   },
-  method: {
+  methods: {
     async fetchData() { //perform an AJAX request to fetch form data
-      let response = await fetch("http://localhost:8080/main/data")
-      let data = response.json()
-
-      this.form_data = data.form_data
-    }
+      let response = await fetch("http://127.0.0.1:8000/main/data")
+      let data = await response.json()
+      //console.log(data, "OK")
+      this.formData = data
+    },
+  },
+  mounted() {
+    this.fetchData()
   }
-
 }
 </script>
 

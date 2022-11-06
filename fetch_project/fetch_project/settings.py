@@ -40,16 +40,23 @@ INSTALLED_APPS = [
 
     #local apps
     'fetch_api_app.apps.FetchApiAppConfig',
+    "corsheaders",              #!important for apps to interact with each other
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",    #corsheaders middleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",     #Allow Vue Application
 ]
 
 ROOT_URLCONF = 'fetch_project.urls'
