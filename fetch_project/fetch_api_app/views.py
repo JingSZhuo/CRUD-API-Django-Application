@@ -22,5 +22,15 @@ def form_api(request):              #GET request of the database object model
                 for data in FormQuestions.objects.all()
             ]
         })
+    elif request.method == 'POST':
+        #create new recipe (list) -> then create new recipe object then convert to JSON
+        new_form_data = FormQuestions.objects.create(
+            email = "test2@gmail.com",
+            username = "someUserName...",
+            age = "40",
+            date_posted = "",
+        )
+        return JsonResponse(new_form_data.to_dictionary())
+        
 
     

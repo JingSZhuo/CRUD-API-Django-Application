@@ -3,15 +3,35 @@
   <div>
       <h1>Form Data</h1>
       <div>
-        <div>{{formData}}</div>
+        <!-- <div>{{formData}}</div> -->
+        <!-- <button @click="fetchData">Load Table</button> -->
+        <div>
+          <table class="position-relative left-100 top-200">
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Username</th>
+              <th>Age</th>
+              <th>Date Posted</th>
+            </tr>
+            <tr v-for="(data, id) in formData['forms_dictionary']" :key="id">
+              <td>{{data.id}}</td>
+              <td>{{data.email}}</td>
+              <td>{{data.username}}</td>
+              <td>{{data.age}}</td>
+              <td>{{data.date_posted}}</td>
+            </tr>
+          </table>
+        </div>
       </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'MainApp',
-  data() {
+  data() {       //Stores data variables
     return  {
         formData: [],
     }
@@ -20,8 +40,8 @@ export default {
     async fetchData() { //perform an AJAX request to fetch form data
       let response = await fetch("http://127.0.0.1:8000/main/data")
       let data = await response.json()
-      //console.log(data, "OK")
       this.formData = data
+      
     },
   },
   mounted() {
