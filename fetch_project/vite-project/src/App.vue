@@ -32,14 +32,15 @@
 <script>
 
 export default {
+  
   name: 'MainApp',
   data() {              //Stores data variables that are used in the template
     return  {
         formData: [],
-        email_field: '',
-        username_field: '',
-        age_field: '',
-        date_field: '',
+        email_field: 'aaa@gmail.com',
+        username_field: 'username00',
+        age_field: '32',
+        date_field: '2333-23-11',
     }
   },
   methods: {
@@ -49,8 +50,27 @@ export default {
       this.formData = data
     },
     async postData () {
-      console.log("Posted")
-    }
+      const input = {
+        email : this.email_field,
+        username: this.username_field,
+        age: this.age_field,
+        date: this.date_field,
+      }
+      await fetch("http://127.0.0.1:8000/main/data" , {
+        method: 'POST',
+        mode: 'no-cors', 
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(input),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Data: ", data)
+      })
+      .catch(console.log("Error", input))
+    },
   },
   mounted() {
     this.fetchData()

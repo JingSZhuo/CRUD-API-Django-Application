@@ -56,8 +56,12 @@ MIDDLEWARE = [
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",     #Allow Vue Application
+    "http://127.0.0.1:5173",     #Allow Vue Application
 ]
+
+# CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = 'fetch_project.urls'
 
