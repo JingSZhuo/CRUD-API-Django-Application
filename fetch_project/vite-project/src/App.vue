@@ -10,12 +10,13 @@
               <th>Age</th>
               <th>Date Posted</th>
             </tr>
-            <tr v-for="(data, id) in formData['forms_dictionary']" :key="id">
+            <tr v-for="(data, id_element) in formData['forms_dictionary']" :key="id_element">
               <td>{{data.id}}</td>
               <td>{{data.email}}</td>
               <td>{{data.username}}</td>
               <td>{{data.age}}</td>
               <td>{{data.date_posted}}</td>
+              <td> <button class="btn btn-outline-danger px-3 py-2 m-auto" @click="deleteData(data.id)" >Delete</button> </td>
             </tr>
           </table>
         </div>
@@ -37,40 +38,53 @@ export default {
   data() {              //Stores data variables that are used in the template
     return  {
         formData: [],
-        email_field: 'aaa@gmail.com',
-        username_field: 'username00',
-        age_field: '32',
-        date_field: '2333-23-11',
+        email_field: '',
+        username_field: '',
+        age_field: '',
+        date_field: '',
     }
   },
   methods: {
     async fetchData() { //perform an AJAX request to fetch form data
-      let response = await fetch("http://127.0.0.1:8000/main/data")
+      let response = await fetch("http://127.0.0.1:8000/main/data")    //Request object
       let data = await response.json()
       this.formData = data
     },
     async postData () {
-      const input = {
+      const user_input = {
         email : this.email_field,
         username: this.username_field,
         age: this.age_field,
         date: this.date_field,
       }
-      await fetch("http://127.0.0.1:8000/main/data" , {
+      await fetch("http://127.0.0.1:8000/main/data" , {    //Request object
         method: 'POST',
-        mode: 'no-cors', 
+        mode: 'cors', 
         credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(input),
+        body: JSON.stringify(user_input),
       })
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Data: ", data)
-      })
-      .catch(console.log("Error", input))
+      this.fetchData()      //Post new dataset after post request
     },
+    async deleteData (id_element) {
+      const idObdj = {
+        id: id_element
+      }
+
+      console.log("ID: ", id_element)
+      await fetch("http://127.0.0.1:8000/main/data", {
+        method: 'DELETE',
+        headers: {
+          'Content-Type' : 'application/json', 
+        },
+        body: JSON.stringify(idObdj),
+      })
+      .then((response) => response.json())
+      .then(this.fetchData())
+    }
   },
   mounted() {
     this.fetchData()

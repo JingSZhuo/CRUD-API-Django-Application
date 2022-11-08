@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from fetch_api_app.models import FormQuestions
+
+import json
 
 # Create your views here.
 
@@ -14,6 +17,7 @@ def home(request):
 """Creates a list of dictionaries via the []"""
 #view function that returns a JSONResponse
 
+@csrf_exempt
 def form_api(request):              #GET request of the database object model
     if request.method == 'GET':
         return JsonResponse({
@@ -22,15 +26,28 @@ def form_api(request):              #GET request of the database object model
                 for data in FormQuestions.objects.all()
             ]
         })
-    if request.method == 'POST':
+    elif request.method == 'POST':
         #create new recipe (list) -> then create new recipe object then convert to JSON
+        json_convert_to_dictionary = json.loads(request.body)
         new_form_data = FormQuestions.objects.create(
-            email = "test2@gmail.com",
-            username = "someUserName...",
-            age = "40",
-            date_posted = "1/1/1111",
+            email = json_convert_to_dictionary['email'] ,
+            username = json_convert_to_dictionary['username'],
+            age = json_convert_to_dictionary['age'],
+            date_posted = json_convert_to_dictionary['date'],
         )
         return JsonResponse(new_form_data.to_dictionary())
-        
+
+    elif request.method == 'DELETE':
+        json_convert_to_dictionary = json.loads(request.body)
+        identifier = json_convert_to_dictionary['id']
+
+        getId = FormQuestions.objects.get(pk=identifier)
+        getId.delete()
+        return JsonResponse({ 
+            'forms_dictionary' : [
+                data.to_dictionary()
+                for data in FormQuestions.objects.all()
+                ]
+            })
 
     

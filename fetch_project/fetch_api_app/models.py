@@ -18,7 +18,6 @@ class FormQuestions(models.Model):
 
     def __str__(self):
         return self.username
-
     
     """Converts database object to python dictionary format (JSON Format)"""
     
