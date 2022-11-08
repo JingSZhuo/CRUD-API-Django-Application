@@ -12,9 +12,13 @@ class FormQuestions(models.Model):
     username = models.CharField(max_length=200 )
     age = models.IntegerField(default=0 )
     date_posted = models.DateField('Date posted' )
+    
+    def __str__(self):
+        return self.email
 
     def __str__(self):
-        return self.date_posted
+        return self.username
+
     
     """Converts database object to python dictionary format (JSON Format)"""
     
