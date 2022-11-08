@@ -21,12 +21,16 @@
           </table>
         </div>
         <div class="d-flex flex-column justify-content-center w-75 m-auto p-5">
-          <p> {{ email_field }}  {{username_field}} {{age_field}} {{date_field}}</p>
+          <p>{{id_field}} {{ email_field }}  {{username_field}} {{age_field}} {{date_field}}</p>
+          <input class="my-3" v-model="id_field" type="number" placeholder="ID">
           <input class="my-3" v-model="email_field" type="email" placeholder="Email">
           <input class="my-3" v-model="username_field" type="text" placeholder="Username">
           <input class="my-3" v-model="age_field" type="number" placeholder="Age">
           <input class="my-3" v-model="date_field" type="date" placeholder="Date">
-          <button class="btn btn-outline-primary px-5 py-2 m-auto" @click="postData"> Post </button>
+          <div class="d-flex felx-row justify-content-center">
+            <button class="btn btn-outline-primary px-5 py-2 m-auto" @click="postData"> Post </button>
+            <button class="btn btn-outline-success px-5 py-2 m-auto" @click="putData(id_field, email_field, username_field, age_field, date_field)"> Edit </button>
+          </div>
         </div>
 </template>
 
@@ -38,6 +42,7 @@ export default {
   data() {              //Stores data variables that are used in the template
     return  {
         formData: [],
+        id_field: '',
         email_field: '',
         username_field: '',
         age_field: '',
@@ -59,8 +64,8 @@ export default {
       }
       await fetch("http://127.0.0.1:8000/main/data" , {    //Request object
         method: 'POST',
-        mode: 'cors', 
-        credentials: 'same-origin',
+        // mode: 'cors', 
+        // credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -68,6 +73,26 @@ export default {
       })
       .then((response) => response.json())
       this.fetchData()      //Post new dataset after post request
+    },
+    async putData (id, email, username, age, date) {
+
+      const updated_data = {
+        id_edit: id,
+        updated_email : email,
+        updated_username: username,
+        updated_age: age,
+        updated_date: date,
+      }
+
+      await fetch("http://127.0.0.1:8000/main/data" , {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updated_data),
+      })
+      .then((response) => (response.json()))
+      .then(this.fetchData())
     },
     async deleteData (id_element) {
       const idObdj = {

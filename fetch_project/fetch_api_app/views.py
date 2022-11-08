@@ -37,6 +37,25 @@ def form_api(request):              #GET request of the database object model
         )
         return JsonResponse(new_form_data.to_dictionary())
 
+    elif request.method == 'PUT':
+        json_convert_to_dictionary = json.loads(request.body)
+        identifier = json_convert_to_dictionary['id_edit']
+
+        getId = FormQuestions.objects.get(pk=identifier)
+
+        getId.email = json_convert_to_dictionary['updated_email']
+        getId.username = json_convert_to_dictionary['updated_username']
+        getId.age = json_convert_to_dictionary['updated_age']
+        getId.date_posted = json_convert_to_dictionary['updated_date']
+        getId.save()
+
+        return JsonResponse({ 
+            'forms_dictionary' : [
+                data.to_dictionary()
+                for data in FormQuestions.objects.all()
+                ]
+            })
+
     elif request.method == 'DELETE':
         json_convert_to_dictionary = json.loads(request.body)
         identifier = json_convert_to_dictionary['id']
@@ -49,5 +68,7 @@ def form_api(request):              #GET request of the database object model
                 for data in FormQuestions.objects.all()
                 ]
             })
+    else: 
+        pass
 
     
