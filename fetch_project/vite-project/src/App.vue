@@ -50,11 +50,20 @@ export default {
     }
   },
   methods: {
-    async fetchData() { //perform an AJAX request to fetch form data
+
+    //function performs an AJAX request to fetch form data 
+
+    async fetchData() {
       let response = await fetch("http://127.0.0.1:8000/main/data")    //Request object
       let data = await response.json()
       this.formData = data
     },
+
+    //function sends a request object (POST Method) with the data to the JsonResponse page.
+    //The form_api function receives the request (via parameters) and reads the body property for the data
+    //Then appends the data to the database.
+    //Finally returns a JsonResponse with the new DB 
+
     async postData () {
       const user_input = {
         email : this.email_field,
@@ -74,6 +83,10 @@ export default {
       .then((response) => response.json())
       this.fetchData()      //Post new dataset after post request
     },
+
+    //function gets user input via parameters and then sends request object (PUT method) with the body to the page
+    //form_api function gets the ID of the row that requires updating and then returns a JsonResponse
+
     async putData (id, email, username, age, date) {
 
       const updated_data = {
@@ -94,6 +107,10 @@ export default {
       .then((response) => (response.json()))
       .then(this.fetchData())
     },
+
+    //sends a DELETE method to the form_api function view 
+    //Identifies the ID to delete the row
+
     async deleteData (id_element) {
       const idObdj = {
         id: id_element

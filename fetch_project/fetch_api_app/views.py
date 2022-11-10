@@ -8,7 +8,7 @@ import json
 
 # Create your views here.
 
-""" Each function is a view that will render different html templates / Vue templates"""
+""" Each function is a view that will render different html templates or HTTP/JSON Responses"""
 
 def home(request):
     return render(request, 'fetch_api_app/main.html')
@@ -16,6 +16,13 @@ def home(request):
 
 """Creates a list of dictionaries via the []"""
 #view function that returns a JSONResponse
+
+"""
+    CSRF Exempt for the form_api function to enable data write to the Models database
+
+    Each method returns a JsonResponse as a HttpResponse, this serves as the API between the front end and the DB 
+
+"""
 
 @csrf_exempt
 def form_api(request):              #GET request of the database object model
@@ -26,6 +33,7 @@ def form_api(request):              #GET request of the database object model
                 for data in FormQuestions.objects.all()
             ]
         })
+
     elif request.method == 'POST':
         #create new recipe (list) -> then create new recipe object then convert to JSON
         json_convert_to_dictionary = json.loads(request.body)
