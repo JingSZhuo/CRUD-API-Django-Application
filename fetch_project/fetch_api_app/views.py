@@ -21,7 +21,7 @@ def home(request):
     CSRF Exempt for the form_api function to enable data write to the Models database
 
     Each method returns a JsonResponse as a HttpResponse, this serves as the API between the front end and the DB 
-
+    
 """
 
 @csrf_exempt

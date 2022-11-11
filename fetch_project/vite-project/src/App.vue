@@ -1,37 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" class="position-relative m-20">
-      <h1 class="h1">Form Data</h1>
+    <div class="bg-primary bg-gradient bg-opacity-75">
+        <div>
+          <h1 class="h1 py-5 mx-auto w-25 text-center">Form Data</h1>
+        </div>
         <div class="p-5">
-          <table class="table border border-success">
-            <tr class="table border border-warning ">
-              <th class="table-success">ID</th>
-              <th>Email</th>
-              <th>Username</th>
-              <th>Age</th>
-              <th>Date Posted</th>
+          <table class="table border border-success table-bordered">
+            <tr class="table border border-success">
+              <th class="fs-5 text-center">ID</th>
+              <th class="fs-5 text-center">Email</th>
+              <th class="fs-5 text-center">Username</th>
+              <th class="fs-5 text-center">Age</th>
+              <th class="fs-5 text-center">Date Posted</th>
             </tr>
             <tr v-for="(data, id_element) in formData['forms_dictionary']" :key="id_element">
-              <td>{{data.id}}</td>
-              <td>{{data.email}}</td>
-              <td>{{data.username}}</td>
-              <td>{{data.age}}</td>
-              <td>{{data.date_posted}}</td>
-              <td> <button class="btn btn-outline-danger px-3 py-2 m-auto" @click="deleteData(data.id)" >Delete</button> </td>
+              <td class="text-center" >{{data.id}}</td>
+              <td class="text-center">{{data.email}}</td>
+              <td class="text-center">{{data.username}}</td>
+              <td class="text-center">{{data.age}}</td>
+              <td class="text-center">{{data.date_posted}}</td>
+              <td> <button class="btn btn-outline-danger bg-danger text-light px-3 py-2 m-auto" @click="deleteData(data.id)" >Delete</button> </td>
             </tr>
           </table>
         </div>
         <div class="d-flex flex-column justify-content-center w-75 m-auto p-5">
           <p>{{id_field}} {{ email_field }}  {{username_field}} {{age_field}} {{date_field}}</p>
-          <input class="my-3" v-model="id_field" type="number" placeholder="ID">
-          <input class="my-3" v-model="email_field" type="email" placeholder="Email">
-          <input class="my-3" v-model="username_field" type="text" placeholder="Username">
-          <input class="my-3" v-model="age_field" type="number" placeholder="Age">
-          <input class="my-3" v-model="date_field" type="date" placeholder="Date">
+          <input class="my-3 shadow-sm border-primary form-control" v-model="id_field" type="number" placeholder="ID field to edit">
+          <input class="my-3 shadow-sm border-primary form-control" v-model="email_field" type="email" placeholder="Email">
+          <input class="my-3 shadow-sm border-primary form-control" v-model="username_field" type="text" placeholder="Username">
+          <input class="my-3 shadow-sm border-primary form-control" v-model="age_field" type="number" placeholder="Age">
+          <input class="my-3 shadow-sm border-primary form-control" v-model="date_field" type="date" placeholder="Date">
           <div class="d-flex felx-row justify-content-center">
-            <button class="btn btn-outline-primary px-5 py-2 m-auto" @click="postData"> Post </button>
-            <button class="btn btn-outline-success px-5 py-2 m-auto" @click="putData(id_field, email_field, username_field, age_field, date_field)"> Edit </button>
+            <button class="btn btn-outline-primary bg-primary text-light px-5 py-2 m-auto" @click="postData"> Post </button>
+            <button class="btn btn-outline-success bg-success text-light px-5 py-2 m-auto" @click="putData(id_field, email_field, username_field, age_field, date_field)"> Edit </button>
           </div>
-        </div>
+        </div>      
+    </div>
 </template>
 
 <script>
@@ -133,3 +136,8 @@ export default {
   }
 }
 </script>
+
+<style>
+
+
+</style>
