@@ -30,7 +30,7 @@
           <input class="my-3 shadow-sm border-primary form-control" v-model="age_field" type="number" placeholder="Age">
           <input class="my-3 shadow-sm border-primary form-control" v-model="date_field" type="date" placeholder="Date">
           <div class="d-flex felx-row justify-content-center">
-            <button class="btn btn-outline-primary bg-primary text-light px-5 py-2 m-auto" @click="postData"> Post </button>
+            <button class="btn btn-outline-primary bg-info text-light px-5 py-2 m-auto" @click="postData"> Post </button>
             <button class="btn btn-outline-success bg-success text-light px-5 py-2 m-auto" @click="putData(id_field, email_field, username_field, age_field, date_field)"> Edit </button>
           </div>
         </div>      
